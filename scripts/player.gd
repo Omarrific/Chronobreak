@@ -85,6 +85,7 @@ func rewind(): #TBD
 		#you stop at
 		while(rewind_values["position"].size() > currIndex+1):
 			rewind_values["position"].pop_back()
+		collision_shape.set_deferred("disabled", false)
 	else:
 		#able to move through objects while in rewind mode, but make it so 
 		# not be able to deactivate rewind until not colliding with anything
