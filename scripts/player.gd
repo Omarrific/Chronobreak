@@ -75,8 +75,6 @@ func _physics_process(delta):
 				rewind_values[key].pop_front()
 				
 		rewind_values["position"].append(global_position)
-		rewind_values["xVelocity"].append(velocity.x)
-		rewind_values["yVelocity"].append(velocity.y)
 		rewind_values["direction"].append(direction)
 		currIndex = rewind_values["position"].size()
 			
@@ -91,17 +89,12 @@ func rewind():
 				rewind_values[key].pop_back()
 			
 		collision_shape.set_deferred("disabled", false)
-		velocity.x = currX
-		velocity.y = currY
 	else:
 		#able to move through objects while in rewind mode, but make it so 
 		# not be able to deactivate rewind until not colliding with anything
 		collision_shape.set_deferred("disabled", true)
 	rewinding = !rewinding
-	
-	
 
-	
 	
 func compute_rewind(delta,direction):
 	if(direction == -1):
@@ -110,8 +103,6 @@ func compute_rewind(delta,direction):
 			global_position = rewind_values["position"][currIndex]
 			direction = rewind_values["direction"][currIndex]
 			directionCheck(direction)
-			currX = rewind_values["xVelocity"][currIndex]
-			currY = rewind_values["yVelocity"][currIndex]
 			
 	elif(direction == 1):
 		if(currIndex+1 < rewind_values["position"].size()):
@@ -119,15 +110,9 @@ func compute_rewind(delta,direction):
 			global_position = rewind_values["position"][currIndex]
 			direction = rewind_values["direction"][currIndex]
 			directionCheck(direction)
-			currX = rewind_values["xVelocity"][currIndex]
-			currY = rewind_values["yVelocity"][currIndex]
 			
 func _process(delta):
 	if Input.is_action_just_pressed("rewind"):
-		print(currY)
-		currX = velocity.x
-		currY = velocity.y
-		print(currY)
 		velocity.x = 0
 		velocity.y = 0
 		rewind()
