@@ -3,7 +3,7 @@ extends CharacterBody2D
 #Basic Control Variables
 const SPEED = 130.0
 const JUMP_VELOCITY = -300.0
-var direction = 1 #Initial value, can change later
+var direction = 0 #Initial value, can change later
 
 #Rewind Mechanic Variables
 var replay_duration = 4.0
@@ -11,8 +11,14 @@ var rewinding = false
 #Will hold things like rotation and velocity later
 var rewind_values = {
 	"position": [],
+	"xVelocity": [],
+	"yVelocity": [],
+	"direction": [], # -1, 0, 1
 }
 var currIndex = 0;
+
+var currX = 0;
+var currY = 0;
 
 
 
@@ -31,8 +37,6 @@ func _physics_process(delta):
 	#or anything like that. When I add in the velocity, position, and animation
 	#being saved change the "= 0" and "=1" stuff 
 	if rewinding:
-		velocity.x = 0
-		velocity.y = 0
 		animated_sprite.speed_scale = 0
 		compute_rewind(delta,direction)
 	else:
@@ -47,11 +51,8 @@ func _physics_process(delta):
 
 		#Gets input direction: -1, 0, 1
 		direction = Input.get_axis("move_left", "move_right")
-
-		if(direction > 0):
-			animated_sprite.flip_h = false
-		elif(direction < 0):
-			animated_sprite.flip_h = true
+		
+		directionCheck(direction)
 			
 		#Play animations
 		if is_on_floor():
@@ -72,20 +73,26 @@ func _physics_process(delta):
 			#matters when I have more things stored
 			for key in rewind_values.keys():
 				rewind_values[key].pop_front()
+				
 		rewind_values["position"].append(global_position)
-		
+		rewind_values["xVelocity"].append(velocity.x)
+		rewind_values["yVelocity"].append(velocity.y)
+		rewind_values["direction"].append(direction)
 		currIndex = rewind_values["position"].size()
 			
 	move_and_slide()
 
-#useless for now
-func rewind(): #TBD 
+func rewind(): 
 	if(rewinding):
 		#Deletes everything in the position array that comes AFTER the index
 		#you stop at
 		while(rewind_values["position"].size() > currIndex+1):
-			rewind_values["position"].pop_back()
+			for key in rewind_values.keys():
+				rewind_values[key].pop_back()
+			
 		collision_shape.set_deferred("disabled", false)
+		velocity.x = currX
+		velocity.y = currY
 	else:
 		#able to move through objects while in rewind mode, but make it so 
 		# not be able to deactivate rewind until not colliding with anything
@@ -101,13 +108,34 @@ func compute_rewind(delta,direction):
 		if(currIndex-1 >= 0):
 			currIndex = currIndex-1 #-- doesn't work?
 			global_position = rewind_values["position"][currIndex]
+			direction = rewind_values["direction"][currIndex]
+			directionCheck(direction)
+			currX = rewind_values["xVelocity"][currIndex]
+			currY = rewind_values["yVelocity"][currIndex]
+			
 	elif(direction == 1):
 		if(currIndex+1 < rewind_values["position"].size()):
 			currIndex = currIndex+1 #++ doesn't work?
 			global_position = rewind_values["position"][currIndex]
+			direction = rewind_values["direction"][currIndex]
+			directionCheck(direction)
+			currX = rewind_values["xVelocity"][currIndex]
+			currY = rewind_values["yVelocity"][currIndex]
 			
 func _process(delta):
 	if Input.is_action_just_pressed("rewind"):
+		print(currY)
+		currX = velocity.x
+		currY = velocity.y
+		print(currY)
+		velocity.x = 0
+		velocity.y = 0
 		rewind()
+
+func directionCheck(direction):
+	if(direction > 0):
+		animated_sprite.flip_h = false
+	elif(direction < 0):
+		animated_sprite.flip_h = true
 	
 	
