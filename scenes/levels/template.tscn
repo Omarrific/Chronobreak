@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://cjeyhrfn5t7g0"]
+
+[ext_resource type="Script" path="res://scripts/template.gd" id="1_0n7ha"]
+[ext_resource type="PackedScene" uid="uid://dccvq3ukookqv" path="res://scenes/player.tscn" id="2_f5q0n"]
+[ext_resource type="PackedScene" uid="uid://bnw0jq3yacjl3" path="res://scenes/menus/pause_menu.tscn" id="3_ha5y3"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ep034"]
+distance = -7.0
+
+[node name="Template" type="Node2D"]
+script = ExtResource("1_0n7ha")
+
+[node name="Player" parent="." instance=ExtResource("2_f5q0n")]
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(4, 4)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(1, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("WorldBoundaryShape2D_ep034")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Pause Menu" parent="CanvasLayer" instance=ExtResource("3_ha5y3")]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b45qtrjalnj6t"]
 
-[ext_resource type="Script" path="res://scripts/options_menu.gd" id="1_v5goi"]
-[ext_resource type="PackedScene" uid="uid://hatbooql3j7" path="res://scenes/volume.tscn" id="2_rvvqs"]
+[ext_resource type="Script" path="res://scripts/options_menu.gd" id="1_fcx15"]
+[ext_resource type="PackedScene" uid="uid://hatbooql3j7" path="res://scenes/menus/volume.tscn" id="2_uapgy"]
 
 [node name="Main Menu" type="Control"]
 layout_mode = 3
@@ -10,7 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_v5goi")
+script = ExtResource("1_fcx15")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0
@@ -24,7 +24,7 @@ layout_mode = 2
 layout_mode = 2
 text = "Volume"
 
-[node name="volume" parent="MarginContainer/VBoxContainer" instance=ExtResource("2_rvvqs")]
+[node name="volume" parent="MarginContainer/VBoxContainer" instance=ExtResource("2_uapgy")]
 layout_mode = 2
 bus_name = "Master"
 
