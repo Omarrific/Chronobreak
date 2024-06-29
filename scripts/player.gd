@@ -89,10 +89,12 @@ func rewind():
 				rewind_values[key].pop_back()
 			
 		collision_shape.set_deferred("disabled", false)
+		Engine.time_scale = 1
 	else:
 		#able to move through objects while in rewind mode, but make it so 
 		# not be able to deactivate rewind until not colliding with anything
 		collision_shape.set_deferred("disabled", true)
+		Engine.time_scale = 0
 	rewinding = !rewinding
 
 	
@@ -113,8 +115,9 @@ func compute_rewind(delta,direction):
 			
 func _process(delta):
 	if Input.is_action_just_pressed("rewind"):
-		velocity.x = 0
-		velocity.y = 0
+		if(!rewinding): #maybe helps with rewind velocity
+			velocity.x = 0
+			velocity.y = 0
 		rewind()
 
 func directionCheck(direction):

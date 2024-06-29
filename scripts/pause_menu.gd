@@ -1,6 +1,6 @@
 extends Control
 
-var _is_paused : bool = false: 
+var _is_paused = false: 
 	set = set_paused
 
 func set_paused(value):
