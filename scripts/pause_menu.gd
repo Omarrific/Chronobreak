@@ -20,7 +20,13 @@ func _on_resume_pressed():
 
 func _on_settings_pressed():
 	pass # Replace with function body.
+	
+func _on_restart_level_pressed():
+	_is_paused = false
+	get_tree().reload_current_scene()
 
 
 func _on_quit_pressed():
 	pass
+
+
