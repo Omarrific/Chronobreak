@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbunxum0pbhyy"]
+
+[ext_resource type="Script" path="res://scripts/checkpoint_flag.gd" id="1_ceuil"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ppd6o"]
+size = Vector2(24.5, 20)
+
+[node name="checkpointFlag" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_ceuil")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ppd6o")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

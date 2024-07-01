@@ -20,6 +20,8 @@ var currIndex = 0;
 var currX = 0;
 var currY = 0;
 
+#Respawn Variables
+var respawn_position = global_position
 
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -126,4 +128,6 @@ func directionCheck(direction):
 	elif(direction < 0):
 		animated_sprite.flip_h = true
 	
+func respawn():
+	global_position = respawn_position
 	
