@@ -131,3 +131,4 @@ func directionCheck(direction):
 func respawn():
 	global_position = respawn_position
 	
+

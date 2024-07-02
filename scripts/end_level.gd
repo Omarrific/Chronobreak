@@ -15,4 +15,4 @@ func _on_replay_level_pressed():
 
 
 func _on_menu_pressed():
-	get_tree().change_scene_to_file("res://scenes/menus/level_menu.tscn")
+	get_tree().change_scene_to_file("res://scenes/menus/level/level_menu.tscn")
