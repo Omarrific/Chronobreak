@@ -10,6 +10,8 @@
 [sub_resource type="GDScript" id="GDScript_6oqj5"]
 script/source = "extends Node2D
 
+#used for level locking/unlocking
+var levelNumber = 0
 
 "
 

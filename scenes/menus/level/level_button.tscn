@@ -6,6 +6,7 @@
 offset_right = 8.0
 offset_bottom = 8.0
 scale = Vector2(11.6236, 11.6236)
+disabled = true
 text = "Tutorial"
 script = ExtResource("1_7j6o2")
 
