@@ -36,8 +36,8 @@ func get_levels(path):
 	
 func create_level_btn(level_path, level_name):
 	var btn = LEVEL_BTN.instantiate()
-	btn.text = level_name.trim_suffix('.tscn').replace('_', " ")
-	btn.level_path = level_path
+	btn.text = level_name.trim_suffix('.remap').trim_suffix('.tscn').replace('_', " ")
+	btn.level_path = level_path.trim_suffix('.remap')
 	grid.add_child(btn)
 
 func _on_button_pressed():
