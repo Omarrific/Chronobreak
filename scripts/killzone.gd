@@ -4,11 +4,12 @@ extends Area2D
 
 var player = 0
 
-
+signal player_killed
 
 func _on_body_entered(body):
 	Engine.time_scale = 0.5
 	player = body
+	body.inputs_enabled = false
 	timer.start()
 
 func _on_timer_timeout():

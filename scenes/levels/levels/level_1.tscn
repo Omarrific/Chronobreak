@@ -547,6 +547,9 @@ position = Vector2(425, -14)
 
 [node name="Pause Menu" parent="General/CanvasLayer" instance=ExtResource("10_7oh5g")]
 
+[node name="GridContainer" parent="General/CanvasLayer/Pause Menu" index="1"]
+offset_bottom = 245.0
+
 [node name="CanvasLayer2" type="CanvasLayer" parent="General"]
 
 [node name="End Level" parent="General/CanvasLayer2" instance=ExtResource("11_2tqc0")]
@@ -578,5 +581,6 @@ text = "Eat the Fruit to beat the Level"
 [editable path="World Components/checkpoints/checkpointFlag2"]
 [editable path="World Components/checkpoints/checkpointFlag"]
 [editable path="World Components/chronoObjects/introStairs"]
+[editable path="General/CanvasLayer/Pause Menu"]
 [editable path="sign"]
 [editable path="sign2"]

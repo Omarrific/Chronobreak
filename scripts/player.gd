@@ -22,7 +22,7 @@ var currY = 0;
 
 #Respawn Variables
 var respawn_position = global_position
-
+var inputs_enabled = true
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -31,54 +31,54 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var collision_shape = $CollisionShape2D
 
 func _physics_process(delta):
-		
-	#We can use direction in both rewind and in not rewind
-	direction = Input.get_axis("move_left", "move_right")
-		
-	#If I'm rewinding, do rewind stuff. Otherwise, I shouldn't be able to move
-	#or anything like that. When I add in the velocity, position, and animation
-	#being saved change the "= 0" and "=1" stuff 
-	if rewinding:
-		animated_sprite.speed_scale = 0
-		compute_rewind(delta,direction)
-	else:
-		animated_sprite.speed_scale = 1
-		# Add the gravity.
-		if not is_on_floor():
-			velocity.y += gravity * delta
-
-		# Handle jump.
-		if Input.is_action_just_pressed("jump") and is_on_floor():
-			velocity.y = JUMP_VELOCITY
-
-		#Gets input direction: -1, 0, 1
+	if(inputs_enabled):
+		#We can use direction in both rewind and in not rewind
 		direction = Input.get_axis("move_left", "move_right")
-		
-		directionCheck(direction)
 			
-		#Play animations
-		if is_on_floor():
-			if direction == 0:
-				animated_sprite.play("idle")
-			else:
-				animated_sprite.play("run")
+		#If I'm rewinding, do rewind stuff. Otherwise, I shouldn't be able to move
+		#or anything like that. When I add in the velocity, position, and animation
+		#being saved change the "= 0" and "=1" stuff 
+		if rewinding:
+			animated_sprite.speed_scale = 0
+			compute_rewind(delta,direction)
 		else:
-			animated_sprite.play("jump")
+			animated_sprite.speed_scale = 1
+			# Add the gravity.
+			if not is_on_floor():
+				velocity.y += gravity * delta
 
-		if direction:
-			velocity.x = direction * SPEED
-		else:
-			velocity.x = move_toward(velocity.x, 0, SPEED)
-		
-		#store the variables for rewinding
-		if replay_duration * Engine.physics_ticks_per_second == rewind_values["position"].size():
-			#matters when I have more things stored
-			for key in rewind_values.keys():
-				rewind_values[key].pop_front()
+			# Handle jump.
+			if Input.is_action_just_pressed("jump") and is_on_floor():
+				velocity.y = JUMP_VELOCITY
+
+			#Gets input direction: -1, 0, 1
+			direction = Input.get_axis("move_left", "move_right")
+			
+			directionCheck(direction)
 				
-		rewind_values["position"].append(global_position)
-		rewind_values["direction"].append(direction)
-		currIndex = rewind_values["position"].size()
+			#Play animations
+			if is_on_floor():
+				if direction == 0:
+					animated_sprite.play("idle")
+				else:
+					animated_sprite.play("run")
+			else:
+				animated_sprite.play("jump")
+
+			if direction:
+				velocity.x = direction * SPEED
+			else:
+				velocity.x = move_toward(velocity.x, 0, SPEED)
+			
+			#store the variables for rewinding
+			if replay_duration * Engine.physics_ticks_per_second == rewind_values["position"].size():
+				#matters when I have more things stored
+				for key in rewind_values.keys():
+					rewind_values[key].pop_front()
+					
+			rewind_values["position"].append(global_position)
+			rewind_values["direction"].append(direction)
+			currIndex = rewind_values["position"].size()
 			
 	move_and_slide()
 
@@ -116,7 +116,7 @@ func compute_rewind(delta,direction):
 			directionCheck(direction)
 			
 func _process(delta):
-	if Input.is_action_just_pressed("rewind"):
+	if Input.is_action_just_pressed("rewind") && inputs_enabled:
 		if(!rewinding): #maybe helps with rewind velocity
 			velocity.x = 0
 			velocity.y = 0
@@ -130,5 +130,11 @@ func directionCheck(direction):
 	
 func respawn():
 	global_position = respawn_position
-	
+	inputs_enabled = true
+	rewind_values = {
+		"position": [],
+		"xVelocity": [],
+		"yVelocity": [],
+		"direction": [], # -1, 0, 1
+	}
 
