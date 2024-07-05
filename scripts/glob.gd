@@ -2,6 +2,7 @@ extends Node
 
 var levels = []
 var unlockedLevels = 1
+var collectibles = []
 
 #saving game data
 

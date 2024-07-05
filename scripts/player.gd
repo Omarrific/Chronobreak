@@ -17,8 +17,8 @@ var rewind_values = {
 }
 var currIndex = 0;
 
-var currX = 0;
-var currY = 0;
+var currX = 0; #xVel
+var currY = 0; #yVel
 
 #Respawn Variables
 var respawn_position = global_position
@@ -131,10 +131,12 @@ func directionCheck(direction):
 func respawn():
 	global_position = respawn_position
 	inputs_enabled = true
-	rewind_values = {
+	resetRewind()
+
+func resetRewind():
+		rewind_values = {
 		"position": [],
 		"xVelocity": [],
 		"yVelocity": [],
 		"direction": [], # -1, 0, 1
 	}
-
