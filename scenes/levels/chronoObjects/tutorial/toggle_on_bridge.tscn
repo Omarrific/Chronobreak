@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=3 uid="uid://dk6oqe5w1gxi4"]
+
+[ext_resource type="Script" path="res://scripts/toggle_on_bridge.gd" id="1_4vq3v"]
+[ext_resource type="Texture2D" uid="uid://dh1mqoj42mgk8" path="res://assets/brackeys_platformer_assets/sprites/platforms.png" id="1_lh1ov"]
+[ext_resource type="Texture2D" uid="uid://c5ox4tyff8pdt" path="res://assets/brackeys_platformer_assets/sprites/fruit.png" id="2_keaj1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n4p8g"]
+size = Vector2(4.91667, 10.641)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wi4vy"]
+size = Vector2(16, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0v8ml"]
+size = Vector2(30, 8)
+
+[node name="toggleOnBridge" type="Node2D"]
+script = ExtResource("1_4vq3v")
+
+[node name="offArea" type="Marker2D" parent="."]
+
+[node name="offArea" type="Area2D" parent="offArea"]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="offArea/offArea"]
+position = Vector2(31, -4)
+shape = SubResource("RectangleShape2D_n4p8g")
+
+[node name="onButton" type="Marker2D" parent="."]
+position = Vector2(-30, -6)
+
+[node name="Sprite2D2" type="Sprite2D" parent="onButton"]
+texture = ExtResource("2_keaj1")
+region_enabled = true
+region_rect = Rect2(2, 50, 11, 13)
+
+[node name="onArea" type="Area2D" parent="onButton"]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="onButton/onArea"]
+shape = SubResource("RectangleShape2D_wi4vy")
+
+[node name="AnimatableBody2D" type="AnimatableBody2D" parent="."]
+collision_mask = 2
+
+[node name="door" type="CollisionShape2D" parent="AnimatableBody2D"]
+shape = SubResource("RectangleShape2D_0v8ml")
+
+[node name="Sprite2D" type="Sprite2D" parent="AnimatableBody2D"]
+texture = ExtResource("1_lh1ov")
+region_enabled = true
+region_rect = Rect2(17, 17, 30, 8)
+
+[connection signal="body_entered" from="offArea/offArea" to="." method="_on_off_area_body_entered"]
+[connection signal="body_entered" from="onButton/onArea" to="." method="_on_on_area_body_entered"]
+[connection signal="body_exited" from="onButton/onArea" to="." method="_on_on_area_body_exited"]

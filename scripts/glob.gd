@@ -1,5 +1,7 @@
 extends Node
 
+var rewinding = false
+
 var levels = []
 var unlockedLevels = 1
 var collectibles = []

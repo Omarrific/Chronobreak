@@ -8,6 +8,7 @@ extends Node2D
 var levelNumber = 1
 
 func _ready():
+	global.rewinding = false
 	Engine.time_scale = 1
 	player.animated_sprite.speed_scale = 1
 	player.rewinding = false

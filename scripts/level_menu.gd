@@ -7,8 +7,8 @@ const LEVEL_BTN = preload("res://scenes/menus/level/level_button.tscn")
 @onready var grid  = $MarginContainer/VBoxContainer/GridContainer
 
 func _ready():
+	get_tree().paused = false
 	get_levels(dir_path)
-
 	
 func get_levels(path):
 	var dir = DirAccess.open(path)
@@ -29,8 +29,6 @@ func get_levels(path):
 				level.disabled = false
 			else:
 				level.disabled = true
-				
-				
 	else:
 		print('No level path found')
 	
@@ -39,6 +37,6 @@ func create_level_btn(level_path, level_name):
 	btn.text = level_name.trim_suffix('.remap').trim_suffix('.tscn').replace('_', " ")
 	btn.level_path = level_path.trim_suffix('.remap')
 	grid.add_child(btn)
-
-func _on_button_pressed():
+	
+func _on_back_button_pressed():
 	get_tree().change_scene_to_file("res://scenes/menus/main_menu.tscn")
