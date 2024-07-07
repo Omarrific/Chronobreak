@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cbunxum0pbhyy"]
+[gd_scene load_steps=4 format=3 uid="uid://cbunxum0pbhyy"]
 
 [ext_resource type="Script" path="res://scripts/checkpoint_flag.gd" id="1_ceuil"]
+[ext_resource type="Texture2D" uid="uid://c5ox4tyff8pdt" path="res://assets/brackeys_platformer_assets/sprites/fruit.png" id="2_abf2e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ppd6o"]
 size = Vector2(24.5, 20)
@@ -11,5 +12,10 @@ script = ExtResource("1_ceuil")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_ppd6o")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_abf2e")
+region_enabled = true
+region_rect = Rect2(34, 49, 12, 15)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

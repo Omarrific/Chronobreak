@@ -10,7 +10,6 @@ var save_path = "user://variable.save"
 
 func _ready():
 	load_data()
-	print(unlockedLevels)
 
 func save(): 
 	var file = FileAccess.open(save_path, FileAccess.WRITE)
@@ -18,7 +17,6 @@ func save():
 	file.store_var(unlockedLevels)
 
 func load_data():
-	print(save_path)
 	if FileAccess.file_exists(save_path):
 		var file = FileAccess.open(save_path, FileAccess.READ)
 		unlockedLevels = file.get_var(unlockedLevels)

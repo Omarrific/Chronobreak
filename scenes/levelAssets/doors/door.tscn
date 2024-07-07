@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cwp4kof3imp4h"]
 
-[ext_resource type="Texture2D" uid="uid://dh1mqoj42mgk8" path="res://assets/brackeys_platformer_assets/sprites/platforms.png" id="1_bmsd6"]
-[ext_resource type="Script" path="res://scripts/door.gd" id="1_peiyg"]
+[ext_resource type="Script" path="res://scripts/door.gd" id="1_ey66v"]
+[ext_resource type="Texture2D" uid="uid://dh1mqoj42mgk8" path="res://assets/brackeys_platformer_assets/sprites/platforms.png" id="2_pu32p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u7sx0"]
 size = Vector2(32, 8)
@@ -12,10 +12,10 @@ size = Vector2(11, 12)
 [node name="door" type="AnimatableBody2D"]
 rotation = 1.5708
 collision_mask = 2
-script = ExtResource("1_peiyg")
+script = ExtResource("1_ey66v")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_bmsd6")
+texture = ExtResource("2_pu32p")
 region_enabled = true
 region_rect = Rect2(16, 16, 32, 8)
 
@@ -38,5 +38,5 @@ collision_mask = 2
 shape = SubResource("RectangleShape2D_cmhp7")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_entered" from="open/opening" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="open/opening" to="." method="_on_opening_body_entered"]
+[connection signal="body_entered" from="open/opening" to="." method="_on_area_2d_body_entered"]

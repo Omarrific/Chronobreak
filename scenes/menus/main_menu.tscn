@@ -41,6 +41,24 @@ text = "Settings"
 layout_mode = 2
 text = "Quit"
 
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 910.0
+offset_top = 574.0
+offset_right = 1149.0
+offset_bottom = 643.0
+theme_override_font_sizes/font_size = 50
+text = "Beta 1.0.0"
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 371.0
+offset_top = 188.0
+offset_right = 833.0
+offset_bottom = 271.0
+theme_override_font_sizes/font_size = 60
+text = "Chrono // Break"
+
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

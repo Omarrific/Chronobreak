@@ -6,6 +6,7 @@ var entered = false
 
 
 func _on_body_entered(body):
+	print("hi")
 	if(!entered):
 		emit_signal("player_win")
 		entered = true
