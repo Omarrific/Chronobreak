@@ -1,9 +1,11 @@
 extends Node
 
 #make false when releasing versions
-var deleteSave = false
+var deleteSave = true
 
 var rewinding = false
+var direction = 0
+var replay_duration = 4.0
 
 var levels = []
 var unlockedLevels = 1

@@ -10,7 +10,8 @@ var currOpen = 1
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	openOne()
-
+	#door1.set_collision_layer_value(1,false)
+	#door3.set_collision_layer_value(1,false)
 func openOne():
 	currOpen = 1
 	door1.visible = false

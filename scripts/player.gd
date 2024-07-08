@@ -42,6 +42,7 @@ func _physics_process(delta):
 		#being saved change the "= 0" and "=1" stuff 
 		if rewinding:
 			animated_sprite.speed_scale = 0
+			global.direction = direction
 			compute_rewind(delta,direction)
 		else:
 			animated_sprite.speed_scale = 1
@@ -93,12 +94,12 @@ func rewind():
 				rewind_values[key].pop_back()
 			
 		set_collision_mask_value(1,true)
-		Engine.time_scale = 1
+		#Engine.time_scale = 1
 	else:
 		#able to move through objects while in rewind mode, but make it so 
 		# not be able to deactivate rewind until not colliding with anything
 		set_collision_mask_value(1, false)
-		Engine.time_scale = 0
+		#Engine.time_scale = 0
 	rewinding = !rewinding
 	global.rewinding = !global.rewinding
 
@@ -106,14 +107,14 @@ func rewind():
 func compute_rewind(delta,direction):
 	if(direction == -1):
 		if(currIndex-1 >= 0):
-			currIndex = currIndex-1 #-- doesn't work?
+			currIndex = currIndex-1
 			global_position = rewind_values["position"][currIndex]
 			direction = rewind_values["direction"][currIndex]
 			directionCheck(direction)
 			
 	elif(direction == 1):
 		if(currIndex+1 < rewind_values["position"].size()):
-			currIndex = currIndex+1 #++ doesn't work?
+			currIndex = currIndex+1
 			global_position = rewind_values["position"][currIndex]
 			direction = rewind_values["direction"][currIndex]
 			directionCheck(direction)
@@ -141,9 +142,12 @@ func respawn():
 	
 
 func resetRewind():
+		currIndex = 0
 		rewind_values = {
 		"position": [],
 		"xVelocity": [],
 		"yVelocity": [],
 		"direction": [], # -1, 0, 1
 	}
+		if(rewinding):
+			rewind()
