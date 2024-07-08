@@ -2,6 +2,9 @@ extends Button
 
 @export_file var level_path
 
+@onready var enabledButton = $Marker2D/enabled
+
+
 var original_size := scale
 var grow_size := Vector2(1.1, 1.1)
 
@@ -19,3 +22,5 @@ func _on_pressed():
 	if(level_path == null):
 		return
 	get_tree().change_scene_to_file(level_path)
+
+

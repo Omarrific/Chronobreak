@@ -135,6 +135,10 @@ func respawn():
 	global_position = respawn_position
 	inputs_enabled = true
 	resetRewind()
+	rewinding = false
+	set_collision_mask_value(1,true)
+	global.currCollectibles = []
+	
 
 func resetRewind():
 		rewind_values = {

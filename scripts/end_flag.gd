@@ -15,6 +15,8 @@ func _on_body_entered(body):
 		body.animated_sprite.stop()
 		var currScene = get_tree().current_scene.levelNumber
 		global.unlockedLevels = max(global.unlockedLevels, currScene+1)
+		global.collectibles.append_array(global.currCollectibles)
+		global.currCollectibles = []
 		global.save()
 
 	

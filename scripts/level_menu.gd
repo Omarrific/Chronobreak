@@ -37,6 +37,10 @@ func create_level_btn(level_path, level_name):
 	btn.text = level_name.trim_suffix('.remap').trim_suffix('.tscn').replace('_', " ")
 	btn.level_path = level_path.trim_suffix('.remap')
 	grid.add_child(btn)
+	if(global.collectibles.has(grid.get_child_count()*3) && global.collectibles.has((grid.get_child_count()*3)-1) && global.collectibles.has((grid.get_child_count()*3)-2)):
+		btn.enabledButton.visible = true
+	else:
+		btn.enabledButton.visible = false
 	
 func _on_back_button_pressed():
 	get_tree().change_scene_to_file("res://scenes/menus/main_menu.tscn")

@@ -1,13 +1,23 @@
-[gd_scene load_steps=2 format=3 uid="uid://n34jmnosiikx"]
+[gd_scene load_steps=3 format=3 uid="uid://n34jmnosiikx"]
 
 [ext_resource type="Script" path="res://scripts/Level Button.gd" id="1_7j6o2"]
+[ext_resource type="Texture2D" uid="uid://2kd0211nu63r" path="res://assets/Prinbles_GUI_Asset_Silent (1.0.0)/asset/png/Star/Small/Active.png" id="2_4jmfn"]
 
 [node name="Level Button" type="Button"]
 offset_right = 8.0
 offset_bottom = 8.0
 scale = Vector2(11.6236, 11.6236)
 disabled = true
-text = "Tutorial"
+text = "level 1"
 script = ExtResource("1_7j6o2")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(26.4118, 1.63461)
+scale = Vector2(3, 3)
+
+[node name="enabled" type="Sprite2D" parent="Marker2D"]
+position = Vector2(9.80763, -0.516192)
+scale = Vector2(0.326328, 0.318719)
+texture = ExtResource("2_4jmfn")
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]
