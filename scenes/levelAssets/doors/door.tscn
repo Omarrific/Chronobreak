@@ -45,5 +45,5 @@ region_enabled = true
 region_rect = Rect2(3, 50, 10, 13)
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_entered" from="open/opening" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="open/opening" to="." method="_on_opening_body_entered"]
+[connection signal="body_entered" from="open/opening" to="." method="_on_area_2d_body_entered"]

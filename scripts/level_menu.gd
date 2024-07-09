@@ -43,4 +43,4 @@ func create_level_btn(level_path, level_name):
 		btn.enabledButton.visible = false
 	
 func _on_back_button_pressed():
-	get_tree().change_scene_to_file("res://scenes/menus/main_menu.tscn")
+	get_tree().change_scene_to_file("res://scenes/menus/mainmenu/main_menu.tscn")

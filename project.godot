@@ -11,13 +11,20 @@ config_version=5
 [application]
 
 config/name="ChronoBreak"
-run/main_scene="res://scenes/menus/main_menu.tscn"
+run/main_scene="res://scenes/menus/mainmenu/main_menu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 global="*res://scripts/glob.gd"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
 
 [input]
 

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://tij3ws4nspxb"]
+[gd_scene load_steps=3 format=3 uid="uid://tij3ws4nspxb"]
 
 [ext_resource type="Script" path="res://scripts/Main Menu.gd" id="1_gibty"]
+[ext_resource type="PackedScene" uid="uid://dhww2nvb5llll" path="res://scenes/menus/settings/settings_menu.tscn" id="2_gncwx"]
 
 [node name="Main Menu" type="Control"]
 layout_mode = 3
@@ -41,7 +42,12 @@ text = "Settings"
 layout_mode = 2
 text = "Quit"
 
-[node name="Label" type="Label" parent="."]
+[node name="labels" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="labels"]
 layout_mode = 0
 offset_left = 910.0
 offset_top = 574.0
@@ -50,7 +56,7 @@ offset_bottom = 643.0
 theme_override_font_sizes/font_size = 50
 text = "Beta 1.0.0"
 
-[node name="Label2" type="Label" parent="."]
+[node name="Label2" type="Label" parent="labels"]
 layout_mode = 0
 offset_left = 371.0
 offset_top = 188.0
@@ -58,6 +64,14 @@ offset_right = 833.0
 offset_bottom = 271.0
 theme_override_font_sizes/font_size = 60
 text = "Chrono // Break"
+
+[node name="Settings Menu" parent="." instance=ExtResource("2_gncwx")]
+visible = false
+layout_mode = 1
+offset_left = 578.0
+offset_top = 434.0
+offset_right = 578.0
+offset_bottom = 434.0
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Settings" to="." method="_on_settings_pressed"]

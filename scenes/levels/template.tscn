@@ -1,10 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://cjeyhrfn5t7g0"]
+[gd_scene load_steps=13 format=3 uid="uid://cjeyhrfn5t7g0"]
 
 [ext_resource type="PackedScene" uid="uid://dccvq3ukookqv" path="res://scenes/player.tscn" id="2_f5q0n"]
 [ext_resource type="PackedScene" uid="uid://bnw0jq3yacjl3" path="res://scenes/menus/pause_menu.tscn" id="3_ha5y3"]
 [ext_resource type="Texture2D" uid="uid://nfpv168gbftf" path="res://assets/brackeys_platformer_assets/sprites/world_tileset.png" id="4_2neug"]
 [ext_resource type="PackedScene" uid="uid://bi8lrvpc4cd1e" path="res://scenes/levelAssets/platform.tscn" id="5_4ln8c"]
-[ext_resource type="PackedScene" uid="uid://cw2vltp1ojgdi" path="res://scenes/levelAssets/collectibles/coin.tscn" id="6_o6whd"]
 [ext_resource type="PackedScene" uid="uid://dpgpcqm8awkfp" path="res://scenes/levelAssets/killzone.tscn" id="7_gsyey"]
 
 [sub_resource type="GDScript" id="GDScript_6oqj5"]
@@ -481,9 +480,6 @@ limit_smoothed = true
 position_smoothing_speed = 1.0
 
 [node name="Collectables" type="Node" parent="."]
-
-[node name="coin" parent="Collectables" instance=ExtResource("6_o6whd")]
-position = Vector2(148, -54)
 
 [node name="World Components" type="Node" parent="."]
 

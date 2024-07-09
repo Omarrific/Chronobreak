@@ -445,22 +445,22 @@ limit_bottom = 130
 limit_smoothed = true
 position_smoothing_speed = 1.0
 
-[node name="Collectables" type="Node" parent="."]
+[node name="World Components" type="Node" parent="."]
 
-[node name="collectible3" parent="Collectables" instance=ExtResource("4_gkwk8")]
+[node name="Collectables" type="Node" parent="World Components"]
+
+[node name="collectible3" parent="World Components/Collectables" instance=ExtResource("4_gkwk8")]
 position = Vector2(917, 115)
 collectibleNum = 3
 rewindOnly = true
 
-[node name="collectible2" parent="Collectables" instance=ExtResource("4_gkwk8")]
+[node name="collectible2" parent="World Components/Collectables" instance=ExtResource("4_gkwk8")]
 position = Vector2(1001, 59)
 collectibleNum = 2
 
-[node name="collectible" parent="Collectables" instance=ExtResource("4_gkwk8")]
+[node name="collectible" parent="World Components/Collectables" instance=ExtResource("4_gkwk8")]
 position = Vector2(99, 51)
 collectibleNum = 1
-
-[node name="World Components" type="Node" parent="."]
 
 [node name="end flag" parent="World Components" instance=ExtResource("13_e172y")]
 position = Vector2(1176, 59)
@@ -556,7 +556,7 @@ offset_bottom = -13.0
 text = "W/A/D to move (or arrow keys)"
 
 [node name="rewindSign" parent="World Components/signs" instance=ExtResource("5_l84ar")]
-position = Vector2(282, 57)
+position = Vector2(279, 57)
 
 [node name="Label" parent="World Components/signs/rewindSign" index="2"]
 offset_left = -105.0
@@ -668,6 +668,7 @@ offset_bottom = 245.0
 [node name="CanvasLayer2" type="CanvasLayer" parent="General"]
 
 [node name="End Level" parent="General/CanvasLayer2" instance=ExtResource("11_2tqc0")]
+visible = false
 
 [connection signal="player_win" from="World Components/end flag" to="." method="_on_end_flag_player_win"]
 
@@ -683,3 +684,4 @@ offset_bottom = 245.0
 [editable path="World Components/puzzles/rewindObjectsPuzzle/press_door"]
 [editable path="World Components/puzzles/rewindObjectsPuzzle/toggleOnBridge"]
 [editable path="General/CanvasLayer/Pause Menu"]
+[editable path="General/CanvasLayer/Pause Menu/settings_menu"]
