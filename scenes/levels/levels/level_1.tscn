@@ -1,9 +1,9 @@
-[gd_scene load_steps=22 format=3 uid="uid://cvgi1imq5ior8"]
+[gd_scene load_steps=20 format=3 uid="uid://cvgi1imq5ior8"]
 
 [ext_resource type="Texture2D" uid="uid://nfpv168gbftf" path="res://assets/brackeys_platformer_assets/sprites/world_tileset.png" id="1_ikf6r"]
 [ext_resource type="Script" path="res://scripts/level_1.gd" id="1_ocfoj"]
 [ext_resource type="PackedScene" uid="uid://dccvq3ukookqv" path="res://scenes/player.tscn" id="2_axv23"]
-[ext_resource type="PackedScene" uid="uid://de7ryfbadximh" path="res://scenes/levelAssets/collectibles/collectible.tscn" id="4_gkwk8"]
+[ext_resource type="PackedScene" uid="uid://w60v17ax1vy2" path="res://scenes/levelAssets/collectibles/collectible.tscn" id="4_gkwk8"]
 [ext_resource type="PackedScene" uid="uid://dm45xai51n4c1" path="res://scenes/levelAssets/sign.tscn" id="5_l84ar"]
 [ext_resource type="PackedScene" uid="uid://dpgpcqm8awkfp" path="res://scenes/levelAssets/killzone.tscn" id="6_7sc8p"]
 [ext_resource type="PackedScene" uid="uid://cbunxum0pbhyy" path="res://scenes/levelAssets/checkpoint_flag.tscn" id="6_cwsvd"]
@@ -16,7 +16,6 @@
 [ext_resource type="PackedScene" uid="uid://dk6oqe5w1gxi4" path="res://scenes/levels/chronoObjects/tutorial/toggle_on_bridge.tscn" id="11_jqdhj"]
 [ext_resource type="PackedScene" uid="uid://dm6ck48wsi3fv" path="res://scenes/levelAssets/end_flag.tscn" id="13_e172y"]
 [ext_resource type="PackedScene" uid="uid://bp0ty8oa5gb1y" path="res://scenes/levelAssets/doors/press_door.tscn" id="14_fbcjv"]
-[ext_resource type="PackedScene" uid="uid://cx73lrplbb0w7" path="res://scenes/levelAssets/doors/timed_door.tscn" id="17_amg0w"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_v418e"]
 texture = ExtResource("1_ikf6r")
@@ -423,8 +422,6 @@ sources/0 = SubResource("TileSetAtlasSource_v418e")
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_8tkvi"]
 distance = -1.0
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ia8rd"]
-
 [node name="tutorial" type="Node2D"]
 script = ExtResource("1_ocfoj")
 
@@ -450,18 +447,18 @@ position_smoothing_speed = 1.0
 
 [node name="Collectables" type="Node" parent="."]
 
-[node name="collectible" parent="Collectables" instance=ExtResource("4_gkwk8")]
-position = Vector2(917, 111)
-collectibleNum = 1
+[node name="collectible3" parent="Collectables" instance=ExtResource("4_gkwk8")]
+position = Vector2(917, 115)
+collectibleNum = 3
 rewindOnly = true
 
 [node name="collectible2" parent="Collectables" instance=ExtResource("4_gkwk8")]
-position = Vector2(1006, 61)
+position = Vector2(1001, 59)
 collectibleNum = 2
 
-[node name="collectible3" parent="Collectables" instance=ExtResource("4_gkwk8")]
-position = Vector2(100, 48)
-collectibleNum = 3
+[node name="collectible" parent="Collectables" instance=ExtResource("4_gkwk8")]
+position = Vector2(99, 51)
+collectibleNum = 1
 
 [node name="World Components" type="Node" parent="."]
 
@@ -474,17 +471,21 @@ position = Vector2(1176, 59)
 position = Vector2(-101, 141)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World Components/killzones/killzone"]
-position = Vector2(151, -23)
+position = Vector2(154, 4)
 shape = SubResource("WorldBoundaryShape2D_8tkvi")
 
-[node name="killzone2" parent="World Components/killzones" instance=ExtResource("6_7sc8p")]
-position = Vector2(874, 158)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World Components/killzones/killzone2"]
-position = Vector2(43, 54)
-shape = SubResource("WorldBoundaryShape2D_ia8rd")
-
 [node name="signs" type="Node2D" parent="World Components"]
+
+[node name="collectiblesSign" parent="World Components/signs" instance=ExtResource("5_l84ar")]
+position = Vector2(1019, 57)
+
+[node name="Label" parent="World Components/signs/collectiblesSign" index="2"]
+offset_left = -32.0
+offset_top = -29.0
+offset_right = 52.0
+offset_bottom = -6.0
+theme_override_font_sizes/font_size = 9
+text = "Find all the coins!"
 
 [node name="win sign" parent="World Components/signs" instance=ExtResource("5_l84ar")]
 position = Vector2(1152, 57)
@@ -668,23 +669,9 @@ offset_bottom = 245.0
 
 [node name="End Level" parent="General/CanvasLayer2" instance=ExtResource("11_2tqc0")]
 
-[node name="collectiblesSign" parent="." instance=ExtResource("5_l84ar")]
-position = Vector2(1019, 57)
-
-[node name="Label" parent="collectiblesSign" index="2"]
-offset_left = -32.0
-offset_top = -29.0
-offset_right = 52.0
-offset_bottom = -6.0
-theme_override_font_sizes/font_size = 9
-text = "Find all the coins!"
-
-[node name="timed_door" parent="." instance=ExtResource("17_amg0w")]
-position = Vector2(40, -18)
-rewindable = true
-
 [connection signal="player_win" from="World Components/end flag" to="." method="_on_end_flag_player_win"]
 
+[editable path="World Components/signs/collectiblesSign"]
 [editable path="World Components/signs/win sign"]
 [editable path="World Components/signs/rewindObjects sign"]
 [editable path="World Components/signs/checkpointSign"]
@@ -696,4 +683,3 @@ rewindable = true
 [editable path="World Components/puzzles/rewindObjectsPuzzle/press_door"]
 [editable path="World Components/puzzles/rewindObjectsPuzzle/toggleOnBridge"]
 [editable path="General/CanvasLayer/Pause Menu"]
-[editable path="collectiblesSign"]

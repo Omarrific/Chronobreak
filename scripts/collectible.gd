@@ -1,9 +1,7 @@
-extends Node2D
+extends Area2D
 
 @export var collectibleNum:int
 @export var rewindOnly: bool
-
-@onready var area = $Area2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -14,18 +12,19 @@ func _ready():
 
 func _process(delta):
 	if(rewindOnly):
-		if(global.rewinding):
+		if(global.rewinding && !global.currCollectibles.has(collectibleNum) && !global.collectibles.has(collectibleNum)):
 			handle_collision(true)
 		else:
 			handle_collision(false)
+	else:
+		if(!global.collectibles.has(collectibleNum) && !global.currCollectibles.has(collectibleNum)):
+			handle_collision(true)
 
 func handle_collision(value):
 	self.visible = value
-	area.set_collision_layer_value(1, value)
+	set_collision_layer_value(1,value)
 
-
-func _on_area_2d_body_entered(body):
-	global.currCollectibles.append(collectibleNum)
-	print(global.currCollectibles)
-	print(global.collectibles)
-	queue_free()
+func _on_body_entered(body):
+	if(!global.currCollectibles.has(collectibleNum) && !global.collectibles.has(collectibleNum)):
+		global.currCollectibles.append(collectibleNum)
+		handle_collision(false)
