@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://p40r2e7ggehl"]
+
+[ext_resource type="Script" path="res://scripts/missile_spawner.gd" id="1_3b5uw"]
+[ext_resource type="Texture2D" uid="uid://dh1mqoj42mgk8" path="res://assets/brackeys_platformer_assets/sprites/platforms.png" id="1_7avda"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h1qgu"]
+size = Vector2(32, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b6s7h"]
+
+[node name="missile_spawner" type="AnimatableBody2D"]
+collision_mask = 2
+script = ExtResource("1_3b5uw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_7avda")
+region_enabled = true
+region_rect = Rect2(16, 16, 32, 8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_h1qgu")
+
+[node name="turnOn" type="Marker2D" parent="."]
+position = Vector2(49, -1)
+
+[node name="missileOn" type="Area2D" parent="turnOn"]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="turnOn/missileOn"]
+shape = SubResource("RectangleShape2D_b6s7h")
+
+[node name="missileTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="silo" type="Node2D" parent="."]
+
+[connection signal="body_entered" from="turnOn/missileOn" to="." method="_on_missile_on_body_entered"]
+[connection signal="timeout" from="missileTimer" to="." method="_on_missile_timer_timeout"]

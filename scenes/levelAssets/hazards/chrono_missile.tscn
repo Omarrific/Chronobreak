@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://bqluyobrtdpqa"]
+
+[node name="chronoMissile" type="AnimatableBody2D"]

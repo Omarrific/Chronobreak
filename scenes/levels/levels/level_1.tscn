@@ -1,8 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://cvgi1imq5ior8"]
+[gd_scene load_steps=21 format=3 uid="uid://cvgi1imq5ior8"]
 
 [ext_resource type="Texture2D" uid="uid://nfpv168gbftf" path="res://assets/brackeys_platformer_assets/sprites/world_tileset.png" id="1_ikf6r"]
 [ext_resource type="Script" path="res://scripts/level_1.gd" id="1_ocfoj"]
 [ext_resource type="PackedScene" uid="uid://dccvq3ukookqv" path="res://scenes/player.tscn" id="2_axv23"]
+[ext_resource type="PackedScene" uid="uid://p40r2e7ggehl" path="res://scenes/levelAssets/hazards/missile_spawner.tscn" id="3_niapk"]
 [ext_resource type="PackedScene" uid="uid://w60v17ax1vy2" path="res://scenes/levelAssets/collectibles/collectible.tscn" id="4_gkwk8"]
 [ext_resource type="PackedScene" uid="uid://dm45xai51n4c1" path="res://scenes/levelAssets/sign.tscn" id="5_l84ar"]
 [ext_resource type="PackedScene" uid="uid://dpgpcqm8awkfp" path="res://scenes/levelAssets/killzone.tscn" id="6_7sc8p"]
@@ -437,6 +438,8 @@ layer_1/tile_data = PackedInt32Array(65532, 524288, 0, 65533, 524288, 0, 65534, 
 layer_2/name = "Foreground"
 layer_2/tile_data = PackedInt32Array()
 
+[node name="Node" type="Node" parent="."]
+
 [node name="Player" parent="." instance=ExtResource("2_axv23")]
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
@@ -444,6 +447,13 @@ zoom = Vector2(4, 4)
 limit_bottom = 130
 limit_smoothed = true
 position_smoothing_speed = 1.0
+
+[node name="missile_spawner" parent="." instance=ExtResource("3_niapk")]
+position = Vector2(54, -47)
+isOn = true
+normalMissiles = true
+spawnTime = 5.0
+lifeTime = 5.0
 
 [node name="World Components" type="Node" parent="."]
 

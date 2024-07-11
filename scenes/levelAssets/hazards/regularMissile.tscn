@@ -1,0 +1,67 @@
+[gd_scene load_steps=8 format=3 uid="uid://bcednlu18xxkm"]
+
+[ext_resource type="Script" path="res://scripts/regularMissile.gd" id="1_7oc8w"]
+[ext_resource type="Texture2D" uid="uid://dh1mqoj42mgk8" path="res://assets/brackeys_platformer_assets/sprites/platforms.png" id="2_pop2d"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gcm01"]
+size = Vector2(16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_riysp"]
+atlas = ExtResource("2_pop2d")
+region = Rect2(0, 48, 16, 9)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gk4q2"]
+atlas = ExtResource("2_pop2d")
+region = Rect2(0, 0, 16, 9)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_umje1"]
+atlas = ExtResource("2_pop2d")
+region = Rect2(0, 32, 16, 9)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qwgix"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_riysp")
+}],
+"loop": true,
+"name": &"chronoMissiles",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gk4q2")
+}],
+"loop": true,
+"name": &"regularMissiles",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_umje1")
+}],
+"loop": true,
+"name": &"rewindMissiles",
+"speed": 5.0
+}]
+
+[node name="regularMissile" type="AnimatableBody2D"]
+collision_layer = 5
+collision_mask = 2
+script = ExtResource("1_7oc8w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_gcm01")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_qwgix")
+animation = &"regularMissiles"
+
+[node name="missile" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="missile"]
+shape = SubResource("RectangleShape2D_gcm01")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
