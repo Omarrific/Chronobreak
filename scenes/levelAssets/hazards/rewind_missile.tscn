@@ -23,9 +23,10 @@ animations = [{
 size = Vector2(16, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mllk5"]
-size = Vector2(16, 10)
+size = Vector2(20, 12)
 
 [node name="rewindMissile" type="CharacterBody2D"]
+collision_mask = 2
 script = ExtResource("1_rxcc3")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -46,6 +47,7 @@ position = Vector2(-5, -27)
 shape = SubResource("RectangleShape2D_mllk5")
 
 [connection signal="timeout" from="missileTimer" to="." method="_on_missile_timer_timeout"]
+[connection signal="body_entered" from="killzone" to="." method="_on_killzone_body_entered"]
 [connection signal="timeout" from="killzone/Timer" to="." method="_on_timer_timeout"]
 
 [editable path="killzone"]

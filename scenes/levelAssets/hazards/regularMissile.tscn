@@ -23,10 +23,9 @@ animations = [{
 size = Vector2(13.7773, 7.85965)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gbm7h"]
-size = Vector2(16, 10)
+size = Vector2(18, 12)
 
 [node name="regularMissile" type="CharacterBody2D"]
-collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_7oc8w")
 
@@ -48,8 +47,8 @@ one_shot = true
 [node name="CollisionShape2D" parent="killzone" index="0"]
 shape = SubResource("RectangleShape2D_gbm7h")
 
-[connection signal="timeout" from="missileTimer" to="." method="_on_missile_timer_timeout"]
 [connection signal="timeout" from="missileTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="missileTimer" to="." method="_on_missile_timer_timeout"]
 [connection signal="body_entered" from="killzone" to="." method="_on_killzone_body_entered"]
 [connection signal="timeout" from="killzone/Timer" to="." method="_on_timer_timeout"]
 

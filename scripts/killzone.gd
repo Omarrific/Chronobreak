@@ -11,6 +11,7 @@ func _on_body_entered(body):
 	player.velocity.x = 0
 	player.velocity.y = 0
 	timer.start()
+	player.hit()
 
 
 func _on_timer_timeout():

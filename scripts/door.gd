@@ -7,6 +7,9 @@ extends AnimatableBody2D
 
 @export var rewindable:bool
 
+@onready var open = $open
+
+@onready var opening = $open/opening
 
 #deals with rewinding 
 var rewind_values = {
@@ -15,6 +18,12 @@ var rewind_values = {
 
 var currIndex = 0;
 
+
+func _ready():
+	if(rewindOnly && !global.rewinding):
+		handleButton(false)
+	else:
+		handleButton(true)		
 #to open door
 func _on_opening_body_entered(body):
 	if(!rewindOnly):
@@ -23,11 +32,16 @@ func _on_opening_body_entered(body):
 		if(body.rewinding):
 			handleDoor(false)
 			
-func _process(delta):
+func _process(delta):	
+	if(rewindOnly && !global.rewinding):
+		handleButton(false)
+	else:
+		handleButton(true)		
 	if Input.is_action_just_pressed("rewind") && global.rewinding && rewindable:
 		rewind()
 		
 func _physics_process(delta):
+
 	if(rewindable):	
 		if(global.rewinding ):
 			compute_rewind(delta)
@@ -51,7 +65,6 @@ func rewind():
 			for key in rewind_values.keys():
 				rewind_values[key].pop_back()
 
-
 func compute_rewind(delta):
 	if(global.direction == -1):
 		if(currIndex-1 >= 0):
@@ -61,3 +74,7 @@ func compute_rewind(delta):
 		if(currIndex+1 < rewind_values["opened"].size()):
 			currIndex = currIndex+1 #++ doesn't work?
 			handleDoor(rewind_values["opened"][currIndex])
+
+func handleButton(value):
+	open.visible = value
+	opening.set_collision_layer_value(1,false)

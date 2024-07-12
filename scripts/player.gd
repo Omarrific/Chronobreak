@@ -139,7 +139,10 @@ func respawn():
 	rewinding = false
 	set_collision_mask_value(1,true)
 	global.currCollectibles = []
-	
+
+func hit():
+	animated_sprite.speed_scale = 1
+	animated_sprite.play("hit")
 
 func resetRewind():
 		currIndex = 0

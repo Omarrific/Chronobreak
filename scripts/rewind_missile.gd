@@ -16,8 +16,7 @@ var direction:int
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	self.visible = false
-	set_collision_layer_value(1,false)
+	self.set_rotation_degrees(90)
 
 func _process(delta):
 	if(!global.rewinding):
@@ -37,8 +36,6 @@ func launch(newLifeTime, speed, dir):
 	changeLifeTime(newLifeTime)
 	changeSpeed(speed)
 	changeDirection(dir)
-	self.visible = true
-	set_collision_layer_value(1,true)
 	missile_timer.start()
 
 func changeSpeed(value):
@@ -71,3 +68,7 @@ func _on_missile_timer_timeout():
 
 func _on_timer_timeout():
 	queue_free()
+
+
+func _on_killzone_body_entered(body):
+	missile_timer.set_paused(true)

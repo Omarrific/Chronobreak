@@ -19,6 +19,7 @@ var direction:int
 func _ready():
 	self.visible = false
 	set_collision_layer_value(1,false)
+	self.set_rotation_degrees(90)
 
 func _process(delta):
 	if(global.rewinding):
@@ -70,3 +71,6 @@ func _on_missile_timer_timeout():
 
 func _on_timer_timeout():
 	queue_free()
+
+func _on_killzone_body_entered(body):
+	missile_timer.set_paused(true)

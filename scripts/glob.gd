@@ -1,7 +1,7 @@
 extends Node
 
 #make false when releasing versions
-var deleteSave = true
+var deleteSave = false
 
 var rewinding = false
 var direction = 0
@@ -28,9 +28,9 @@ func save():
 	#Do this for all variables I want to store
 	file.store_var(unlockedLevels)
 	file.store_var(collectibles)
-	
 	file.store_var(volume)
 	file.store_var(resolutionIndex)
+	file.store_var(isMuted)
 
 func load_data():
 	if FileAccess.file_exists(save_path):
@@ -38,11 +38,11 @@ func load_data():
 			pass
 		else:
 			var file = FileAccess.open(save_path, FileAccess.READ)
-			unlockedLevels = file.get_var(unlockedLevels)
-			collectibles = file.get_var(collectibles)
-			volume =  file.get_var(volume)
-			resolutionIndex = file.get_var(resolutionIndex)
-			isMuted = file.get_var(isMuted)
+			unlockedLevels = file.get_var(true)
+			collectibles = file.get_var(true)
+			volume =  file.get_var(true)
+			resolutionIndex = file.get_var(true)
+			isMuted = file.get_var(true)
 	else:
 		unlockedLevels = 1
 		collectibles = []

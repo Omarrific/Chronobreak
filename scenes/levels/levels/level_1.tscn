@@ -472,7 +472,7 @@ position = Vector2(1176, 59)
 position = Vector2(-101, 141)
 
 [node name="CollisionShape2D" parent="World Components/killzones/killzone" index="0"]
-position = Vector2(195, -23)
+position = Vector2(195, 3)
 shape = SubResource("WorldBoundaryShape2D_kw3o7")
 
 [node name="signs" type="Node2D" parent="World Components"]
