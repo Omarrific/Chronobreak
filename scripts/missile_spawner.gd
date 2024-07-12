@@ -17,39 +17,45 @@ extends AnimatableBody2D
 @export var lifeTime:float
 
 #Determines the minimum speed of a spawned missile
-@export var minMissileSpeed:float
+@export var missileSpeed:float
+
+#Determines the direction missiles will shoot
+#1 = +x, 2 = -x, 3 = +y, 4 = -y
+@export var missileDirection:int
 
 @onready var missile_timer = $missileTimer
 @onready var missile_on = $turnOn/missileOn
 @onready var silo = $silo
 
 
-#1
+#1 Can only hit player while not rewinding
 const regularMissileType = preload("res://scenes/levelAssets/hazards/regularMissile.tscn")
-#2
+#2 Can only hit player while rewinding
 const rewindMissileType = preload("res://scenes/levelAssets/hazards/rewind_missile.tscn")
-#3
+#3 Can ALWAYS hit player, but the player can rewind it's position alongside themself
 const chronoMissileType = preload("res://scenes/levelAssets/hazards/chrono_missile.tscn")
 
 var missileTypes = []
 var pickMissile = 0
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print("hi")
 	missile_timer.set_wait_time(spawnTime)
 	if(normalMissiles):
-		print("did")
 		missileTypes.append(1)
 	if(rewindMissiles):
 		missileTypes.append(2)
 	if(chronoMissiles):
 		missileTypes.append(3)
 	if(isOn):
-		print("on")
 		activate()
-		
+
+func _process(delta):
+	if(global.rewinding):
+		missile_timer.set_paused(true)
+	else:
+		missile_timer.set_paused(false)
+
 #Allows the missile launcher to activate
 func _on_missile_on_body_entered(body):
 	if(!isOn):
@@ -59,13 +65,14 @@ func _on_missile_on_body_entered(body):
 #Turns the spawner on
 func activate():
 	if isOn:
+		spawnMissile()
 		missile_timer.start()
 
 func changeTimer(value):
 	missile_timer.set_wait_time(value)
 
 func changeMinSpeed(value):
-	minMissileSpeed = value
+	missileSpeed = value
 
 func changeLifeTime(value):
 	lifeTime = value
@@ -76,17 +83,11 @@ func _on_missile_timer_timeout():
 #Spawns a missile
 func spawnMissile():
 	pickMissile = missileTypes.pick_random() 
-	var currMissile = 0
-	if(pickMissile == 1):
-		currMissile = regularMissileType.instantiate()
-		currMissile.visible = true
-		pass
-	elif(pickMissile == 2):
-		#spawn a rewind missile
-		pass
-	else:
-		#spawn a chrono missile
-		pass
+	var currMissile =  regularMissileType.instantiate()
+	if(pickMissile == 2):
+		currMissile = rewindMissileType.instantiate()
+	elif(pickMissile == 3):
+		currMissile = chronoMissileType.instantiate()
 	silo.add_child(currMissile)
-	currMissile.launch(lifeTime, minMissileSpeed)
+	currMissile.launch(lifeTime, missileSpeed, missileDirection)
 	

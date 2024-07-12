@@ -1,3 +1,50 @@
-[gd_scene format=3 uid="uid://bqluyobrtdpqa"]
+[gd_scene load_steps=8 format=3 uid="uid://bqluyobrtdpqa"]
 
-[node name="chronoMissile" type="AnimatableBody2D"]
+[ext_resource type="Script" path="res://scripts/chrono_missile.gd" id="1_r6whm"]
+[ext_resource type="Texture2D" uid="uid://dh1mqoj42mgk8" path="res://assets/brackeys_platformer_assets/sprites/platforms.png" id="1_td5i3"]
+[ext_resource type="PackedScene" uid="uid://dpgpcqm8awkfp" path="res://scenes/levelAssets/killzone.tscn" id="2_6eb4v"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6es5b"]
+atlas = ExtResource("1_td5i3")
+region = Rect2(0, 48, 16, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uenmv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6es5b")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c340y"]
+size = Vector2(16, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5ief5"]
+size = Vector2(16, 10)
+
+[node name="chronoMissile" type="CharacterBody2D"]
+script = ExtResource("1_r6whm")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_uenmv")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_c340y")
+
+[node name="missileTimer" type="Timer" parent="."]
+
+[node name="killzone" parent="." instance=ExtResource("2_6eb4v")]
+position = Vector2(6, 16)
+
+[node name="CollisionShape2D" parent="killzone" index="0"]
+position = Vector2(-6, -16)
+shape = SubResource("RectangleShape2D_5ief5")
+
+[connection signal="timeout" from="missileTimer" to="." method="_on_missile_timer_timeout"]
+[connection signal="timeout" from="killzone/Timer" to="." method="_on_timer_timeout"]
+
+[editable path="killzone"]

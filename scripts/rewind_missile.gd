@@ -1,5 +1,4 @@
 extends CharacterBody2D
-
 @onready var sprite = $AnimatedSprite2D
 
 @onready var missile_timer = $missileTimer
@@ -21,7 +20,7 @@ func _ready():
 	set_collision_layer_value(1,false)
 
 func _process(delta):
-	if(global.rewinding):
+	if(!global.rewinding):
 		set_collision_layer_value(1,false)
 		set_collision_mask_value(2,false)
 		killzone.set_collision_layer_value(1, false)
@@ -31,7 +30,7 @@ func _process(delta):
 		set_collision_mask_value(2,true)
 		killzone.set_collision_layer_value(1, true)
 		killzone.set_collision_mask_value(2, true)
-	setVelocity()
+	
 	move_and_collide(Vector2(velocity.x*delta, velocity.y * delta))
 
 func launch(newLifeTime, speed, dir):
@@ -44,12 +43,14 @@ func launch(newLifeTime, speed, dir):
 
 func changeSpeed(value):
 	missileSpeed = value
+	setVelocity()
 
 func changeLifeTime(value):
 	missile_timer.set_wait_time(value)
 
 func changeDirection(value):
 	direction = value
+	setVelocity()
 
 func setVelocity():
 	if(direction == 1):

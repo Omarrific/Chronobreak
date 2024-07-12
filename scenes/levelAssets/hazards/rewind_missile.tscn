@@ -1,3 +1,51 @@
-[gd_scene format=3 uid="uid://bxdcd410laxdi"]
+[gd_scene load_steps=8 format=3 uid="uid://bxdcd410laxdi"]
 
-[node name="rewindMissile" type="AnimatableBody2D"]
+[ext_resource type="Script" path="res://scripts/rewind_missile.gd" id="1_rxcc3"]
+[ext_resource type="Texture2D" uid="uid://dh1mqoj42mgk8" path="res://assets/brackeys_platformer_assets/sprites/platforms.png" id="2_axogm"]
+[ext_resource type="PackedScene" uid="uid://dpgpcqm8awkfp" path="res://scenes/levelAssets/killzone.tscn" id="3_qmwmc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ah12i"]
+atlas = ExtResource("2_axogm")
+region = Rect2(0, 32, 16, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fmcw7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ah12i")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xbdps"]
+size = Vector2(16, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mllk5"]
+size = Vector2(16, 10)
+
+[node name="rewindMissile" type="CharacterBody2D"]
+script = ExtResource("1_rxcc3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_fmcw7")
+animation = &"new_animation"
+autoplay = "new_animation"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_xbdps")
+
+[node name="missileTimer" type="Timer" parent="."]
+
+[node name="killzone" parent="." instance=ExtResource("3_qmwmc")]
+position = Vector2(5, 27)
+
+[node name="CollisionShape2D" parent="killzone" index="0"]
+position = Vector2(-5, -27)
+shape = SubResource("RectangleShape2D_mllk5")
+
+[connection signal="timeout" from="missileTimer" to="." method="_on_missile_timer_timeout"]
+[connection signal="timeout" from="killzone/Timer" to="." method="_on_timer_timeout"]
+
+[editable path="killzone"]

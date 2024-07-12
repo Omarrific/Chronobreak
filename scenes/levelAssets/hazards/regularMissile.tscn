@@ -2,32 +2,14 @@
 
 [ext_resource type="Script" path="res://scripts/regularMissile.gd" id="1_7oc8w"]
 [ext_resource type="Texture2D" uid="uid://dh1mqoj42mgk8" path="res://assets/brackeys_platformer_assets/sprites/platforms.png" id="2_pop2d"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gcm01"]
-size = Vector2(16, 8)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_riysp"]
-atlas = ExtResource("2_pop2d")
-region = Rect2(0, 48, 16, 9)
+[ext_resource type="PackedScene" uid="uid://dpgpcqm8awkfp" path="res://scenes/levelAssets/killzone.tscn" id="3_dcj2v"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gk4q2"]
 atlas = ExtResource("2_pop2d")
 region = Rect2(0, 0, 16, 9)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_umje1"]
-atlas = ExtResource("2_pop2d")
-region = Rect2(0, 32, 16, 9)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_qwgix"]
 animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_riysp")
-}],
-"loop": true,
-"name": &"chronoMissiles",
-"speed": 5.0
-}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_gk4q2")
@@ -35,33 +17,40 @@ animations = [{
 "loop": true,
 "name": &"regularMissiles",
 "speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_umje1")
-}],
-"loop": true,
-"name": &"rewindMissiles",
-"speed": 5.0
 }]
 
-[node name="regularMissile" type="AnimatableBody2D"]
-collision_layer = 5
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kpayb"]
+size = Vector2(13.7773, 7.85965)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gbm7h"]
+size = Vector2(16, 10)
+
+[node name="regularMissile" type="CharacterBody2D"]
+collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_7oc8w")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_gcm01")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_qwgix")
 animation = &"regularMissiles"
+autoplay = "regularMissiles"
 
-[node name="missile" type="Area2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2.38419e-07, -1.19209e-07)
+scale = Vector2(1.01616, 1.01786)
+shape = SubResource("RectangleShape2D_kpayb")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="missile"]
-shape = SubResource("RectangleShape2D_gcm01")
+[node name="missileTimer" type="Timer" parent="."]
+one_shot = true
 
-[node name="Timer" type="Timer" parent="."]
+[node name="killzone" parent="." instance=ExtResource("3_dcj2v")]
 
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[node name="CollisionShape2D" parent="killzone" index="0"]
+shape = SubResource("RectangleShape2D_gbm7h")
+
+[connection signal="timeout" from="missileTimer" to="." method="_on_missile_timer_timeout"]
+[connection signal="timeout" from="missileTimer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="killzone" to="." method="_on_killzone_body_entered"]
+[connection signal="timeout" from="killzone/Timer" to="." method="_on_timer_timeout"]
+
+[editable path="killzone"]
