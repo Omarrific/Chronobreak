@@ -74,3 +74,4 @@ func _on_timer_timeout():
 
 func _on_killzone_body_entered(body):
 	missile_timer.set_paused(true)
+

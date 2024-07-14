@@ -5,6 +5,8 @@ extends CharacterBody2D
 
 @onready var killzone = $killzone
 
+var player = null
+
 #Determines how fast the missile moves
 var missileSpeed:int
 
@@ -115,4 +117,5 @@ func handleMissile(value):
 
 
 func _on_killzone_body_entered(body):
-	missile_timer.set_paused(true)
+	missile_timer.stop()
+	
