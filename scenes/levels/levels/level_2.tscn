@@ -509,7 +509,7 @@ shape = SubResource("RectangleShape2D_f4hpi")
 [node name="missile_spawner" parent="world components/missileSpawners" instance=ExtResource("6_ph82r")]
 position = Vector2(446, -16)
 rotation = -1.5708
-chronoMissiles = true
+normalMissiles = true
 spawnTime = 3.0
 lifeTime = 2.0
 missileSpeed = 120.0
