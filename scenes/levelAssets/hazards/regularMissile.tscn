@@ -47,8 +47,8 @@ one_shot = true
 [node name="CollisionShape2D" parent="killzone" index="0"]
 shape = SubResource("RectangleShape2D_gbm7h")
 
-[connection signal="timeout" from="missileTimer" to="." method="_on_missile_timer_timeout"]
 [connection signal="timeout" from="missileTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="missileTimer" to="." method="_on_missile_timer_timeout"]
 [connection signal="body_entered" from="killzone" to="." method="_on_killzone_body_entered"]
 [connection signal="timeout" from="killzone/Timer" to="." method="_on_timer_timeout"]
 

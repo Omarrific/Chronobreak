@@ -15,7 +15,8 @@ func _ready():
 	settings_menu.set_process(false)
 
 func _on_start_button_button_down():
-	get_tree().change_scene_to_packed(main_game_packed_scene)
+	get_tree().change_scene_to_file('res://scenes/levels/levels/level_2.tscn')
+	#get_tree().change_scene_to_packed(main_game_packed_scene)
 
 func _on_settings_button_button_down():
 	main.visible = false

@@ -3,6 +3,7 @@ extends Node2D
 @onready var tile_map = $TileMap
 
 @onready var trap_enable = $"world components/trapEnable"
+@onready var ddr_reset = $"ddr reset"
 
 var enteredTrap = false
 
@@ -21,3 +22,7 @@ func _on_trap_enable_body_entered(body):
 		enteredTrap = !enteredTrap
 
 	
+
+
+func _on_ddr_reset_body_entered(body):
+	body.resetRewind()

@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://dlasb0slha7dp"]
+
+[ext_resource type="Script" path="res://scripts/gate.gd" id="1_drevn"]
+[ext_resource type="Texture2D" uid="uid://dh1mqoj42mgk8" path="res://assets/brackeys_platformer_assets/sprites/platforms.png" id="1_p0i1s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t3bmi"]
+size = Vector2(30, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xajds"]
+size = Vector2(30, 8)
+
+[node name="gate" type="AnimatableBody2D"]
+rotation = -1.5708
+collision_mask = 2
+script = ExtResource("1_drevn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_p0i1s")
+region_enabled = true
+region_rect = Rect2(17, 1, 30, 8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_t3bmi")
+
+[node name="close" type="Marker2D" parent="."]
+
+[node name="activate" type="Area2D" parent="close"]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="close/activate"]
+position = Vector2(1.04216e-14, -2.38419e-07)
+shape = SubResource("RectangleShape2D_xajds")
+
+[connection signal="body_entered" from="close/activate" to="." method="_on_activate_body_entered"]
