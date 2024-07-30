@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://dciw6826r6rhw"]
+
+[ext_resource type="Script" path="res://scripts/ddrTrap.gd" id="1_370q7"]
+[ext_resource type="PackedScene" uid="uid://cwx08v7o8mwfi" path="res://scenes/levelAssets/timed_gate.tscn" id="2_5ycgh"]
+[ext_resource type="PackedScene" uid="uid://dlasb0slha7dp" path="res://scenes/levelAssets/gate.tscn" id="3_xbaov"]
+[ext_resource type="PackedScene" uid="uid://p40r2e7ggehl" path="res://scenes/levelAssets/hazards/missile_spawner.tscn" id="4_4x3u7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gs6tb"]
+size = Vector2(30, 16.9999)
+
+[node name="ddrTrap" type="Node2D"]
+script = ExtResource("1_370q7")
+
+[node name="timed gate" parent="." instance=ExtResource("2_5ycgh")]
+position = Vector2(113, -1)
+
+[node name="gate" parent="." instance=ExtResource("3_xbaov")]
+
+[node name="gateReset" type="Area2D" parent="gate"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="gate/gateReset"]
+position = Vector2(-6.74665e-05, 13.5)
+shape = SubResource("RectangleShape2D_gs6tb")
+
+[node name="missile" type="Node" parent="."]
+
+[node name="missile_spawner" parent="missile" instance=ExtResource("4_4x3u7")]
+position = Vector2(36, -75)
+
+[node name="missile_spawner2" parent="missile" instance=ExtResource("4_4x3u7")]
+position = Vector2(-2, -94)
+
+[node name="missile_spawner3" parent="missile" instance=ExtResource("4_4x3u7")]
+position = Vector2(87, -98)
+
+[node name="missile_spawner4" parent="missile" instance=ExtResource("4_4x3u7")]
+position = Vector2(-26, -49)
+
+[node name="missile_spawner5" parent="missile" instance=ExtResource("4_4x3u7")]
+position = Vector2(135, -50)
+
+[editable path="timed gate"]
+[editable path="gate"]

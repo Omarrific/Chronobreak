@@ -51,7 +51,7 @@ func _ready():
 		activate()
 
 func _process(delta):
-	if(global.rewinding):
+	if(global.rewinding || !isOn):
 		missile_timer.set_paused(true)
 	else:
 		missile_timer.set_paused(false)
@@ -67,6 +67,9 @@ func activate():
 	if isOn:
 		spawnMissile()
 		missile_timer.start()
+
+func deactivate():
+	isOn = false
 
 func changeTimer(value):
 	missile_timer.set_wait_time(value)
@@ -90,4 +93,5 @@ func spawnMissile():
 		currMissile = chronoMissileType.instantiate()
 	silo.add_child(currMissile)
 	currMissile.launch(lifeTime, missileSpeed, missileDirection)
+	
 	
